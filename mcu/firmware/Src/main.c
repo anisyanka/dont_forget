@@ -4,6 +4,7 @@
 #include <string.h>
 
 #include "main.h"
+#include "web_communication.h"
 
 UART_HandleTypeDef huart2;
 
@@ -11,7 +12,9 @@ static void SystemClock_Config(void);
 static void GPIO_Init(void);
 static void USART2_UART_Init(void);
 
-static uint8_t uart_rx_byte;
+static enum web_action_status floor_lamp_on_func(void *args);
+static enum web_action_status floor_lamp_off_func(void *args);
+
 static uint8_t uart_rx_flag;
 
 int main(void)
@@ -25,29 +28,21 @@ int main(void)
 	GPIO_Init();
 	USART2_UART_Init();
 
-	/* Start UART in non-blocking mode */
-	HAL_UART_Receive_IT(&huart2, &uart_rx_byte, 1);
+	/* Register action to manage light in my room */
+	struct web_action floor_lamp_on = { 'L', '1', floor_lamp_on_func, NULL };
+	struct web_action floor_lamp_off = { 'L', '0', floor_lamp_off_func, NULL };
 
-	int cnt = 0;
+	/* Reg actions and start to listen for messages from web-application */
+	(void)webcomm_register_action(&floor_lamp_on);
+	(void)webcomm_register_action(&floor_lamp_off);
+	webcomm_start_listener();
 
 	while (1) {
 		if (uart_rx_flag) {
-			++cnt;
-			HAL_GPIO_TogglePin(GPIOD, LD4_Pin);
-
-			/* answer: cnt received messages */
-			char answer[16] = { 0 };
-			size_t len = 0;
-
-			itoa(cnt, answer, 10);
-			len = strlen(answer);
-			answer[len] = '\n';
- 
-			HAL_UART_Transmit(&huart2, (uint8_t *)answer, (uint16_t)len, 1000);
-
-			/* make ability to recieve a new byte */
 			uart_rx_flag = 0;
-			HAL_UART_Receive_IT(&huart2, &uart_rx_byte, 1);
+
+			/* Registered actions will execute inside this func */
+			webcomm_handle_rx_handler();
 		}
 	}
 }
@@ -55,6 +50,22 @@ int main(void)
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 	uart_rx_flag = 1;
+}
+
+static enum web_action_status floor_lamp_on_func(void *args)
+{
+	(void)args;
+	HAL_GPIO_WritePin(RELAY_GPIO_Port, RELAY_Pin, GPIO_PIN_RESET);
+
+	return WEBCOMM_ACTION_SUCCESS;
+}
+
+static enum web_action_status floor_lamp_off_func(void *args)
+{
+	(void)args;
+	HAL_GPIO_WritePin(RELAY_GPIO_Port, RELAY_Pin, GPIO_PIN_SET);
+
+	return WEBCOMM_ACTION_SUCCESS;
 }
 
 static void SystemClock_Config(void)
@@ -156,6 +167,7 @@ static void GPIO_Init(void)
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
 	HAL_GPIO_Init(RELAY_GPIO_Port, &GPIO_InitStruct);
+	HAL_GPIO_WritePin(RELAY_GPIO_Port, RELAY_Pin, GPIO_PIN_SET);
 
 	/*Configure GPIO pins : LD4_Pin LD3_Pin LD5_Pin LD6_Pin */
 	GPIO_InitStruct.Pin = LD4_Pin|LD3_Pin|LD5_Pin|LD6_Pin;
