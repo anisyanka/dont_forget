@@ -1,4 +1,8 @@
+#include <stdio.h>
 #include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
+
 #include "main.h"
 
 UART_HandleTypeDef huart2;
@@ -7,6 +11,8 @@ static void SystemClock_Config(void);
 static void GPIO_Init(void);
 static void USART2_UART_Init(void);
 
+static uint8_t uart_rx_byte;
+static uint8_t uart_rx_flag;
 
 int main(void)
 {
@@ -19,10 +25,36 @@ int main(void)
   GPIO_Init();
   USART2_UART_Init();
 
+  /* Start UART in non-blocking mode */
+  HAL_UART_Receive_IT(&huart2, &uart_rx_byte, 1);
+
+  int cnt = 0;
+
   while (1) {
-    HAL_Delay(1000);
-    HAL_GPIO_TogglePin(GPIOD, LD4_Pin);
+    if (uart_rx_flag) {
+      ++cnt;
+      HAL_GPIO_TogglePin(GPIOD, LD4_Pin);
+
+      /* answer: cnt received messages */
+      char answer[16] = { 0 };
+      size_t len = 0;
+
+      itoa(cnt, answer, 10);
+      len = strlen(answer);
+      answer[len] = '\n';
+ 
+      HAL_UART_Transmit(&huart2, (uint8_t *)answer, (uint16_t)len, 1000);
+
+      /* make ability to recieve a new byte */
+      uart_rx_flag = 0;
+      HAL_UART_Receive_IT(&huart2, &uart_rx_byte, 1);
+    }
   }
+}
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+  uart_rx_flag = 1;
 }
 
 static void SystemClock_Config(void)

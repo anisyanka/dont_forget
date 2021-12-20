@@ -2,6 +2,8 @@
 #include "main.h"
 #include "stm32f4xx_it.h"
 
+extern UART_HandleTypeDef huart2;
+
 /******************************************************************************/
 /*           Cortex-M4 Processor Interruption and Exception Handlers          */
 /******************************************************************************/
@@ -91,3 +93,7 @@ void SysTick_Handler(void)
 /* please refer to the startup file (startup_stm32f4xx.s).                    */
 /******************************************************************************/
 
+void USART2_IRQHandler(void)
+{
+  HAL_UART_IRQHandler(&huart2);
+}
