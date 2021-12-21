@@ -35,3 +35,25 @@ After that you are able to use:
     - st-info --probe
  * st-flash to burn a firmware
 
+### Pinout
+**LEDS:**
+   - PD12 
+   - PD13
+   - PD14
+   - PD15
+
+**Input buttons:**
+   - PA0
+
+**Relays:**
+   - PA1
+
+**UART for WEB communication:**
+   - PA2 - USART2_TX
+   - PA3 - USART2_RX
+
+**OLED Display:**
+   - PE0 - PE7 - parallel lines for data bits
+   - PE8 - R/W command line
+   - PE9 - Enable strob
+   - PE10 - RS (defines either data or instruction on parallel lines)
