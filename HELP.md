@@ -57,3 +57,14 @@ After that you are able to use:
    - PE8 - R/W command line
    - PE9 - Enable strob
    - PE10 - RS (defines either data or instruction on parallel lines)
+
+### Run home server
+```console
+$> make home-server
+$> ./home-server/build/homeserv
+$> ngrok http 8080 (proxy to global network)
+```
+
+### Existed problems
+1. UART-USB converter doesn't work until putty start.
+   Try to find out [how to work with tty devices from C code](https://blog.mbedded.ninja/programming/operating-systems/linux/linux-serial-ports-using-c-cpp/).
