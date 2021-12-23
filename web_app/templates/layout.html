@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+
+        <!-- http://getbootstrap.com/docs/4.5/ -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+        <!-- https://www.flaticon.com/premium-icon/smart-home_2668334?term=smart%20home&related_id=2668334 -->
+        <link href="/static/images/favicon.ico" rel="icon">
+
+        <link href="/static/css/styles.css" rel="stylesheet">
+        <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+
+        <!-- http://getbootstrap.com/docs/4.5/ -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+        <title>DONTFORGET | {% block title %}{% endblock %}</title>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth < 690) {
+                        document.querySelector(".main-part").style.fontSize = "40px";
+                        document.querySelector(".secondary-part-text").style.fontSize = "25px";
+                        document.querySelector(".secondary-part-picture").style.width = "32px";
+                        document.querySelector(".secondary-part-picture").style.height = "32px";
+                        document.querySelector(".header-picture").style.width = "180px";
+                        document.querySelector(".header-picture").style.height = "180px";
+                    } else {
+                        document.querySelector(".main-part").style.fontSize = "75px";
+                        document.querySelector(".secondary-part-text").style.fontSize = "45px";
+                        document.querySelector(".secondary-part-picture").style.width = "64px";
+                        document.querySelector(".secondary-part-picture").style.height = "64px";
+                        document.querySelector(".header-picture").style.width = "228px";
+                        document.querySelector(".header-picture").style.height = "228px";
+                    }
+                });
+
+                /* Mobile devices don't fire "resize" event,
+                therefore we have to dublicate the same code here */
+                if (window.innerWidth < 690) {
+                        document.querySelector(".main-part").style.fontSize = "40px";
+                        document.querySelector(".secondary-part-text").style.fontSize = "25px";
+                        document.querySelector(".secondary-part-picture").style.width = "32px";
+                        document.querySelector(".secondary-part-picture").style.height = "32px";
+                        document.querySelector(".header-picture").style.width = "180px";
+                        document.querySelector(".header-picture").style.height = "180px";
+                } else {
+                    document.querySelector(".main-part").style.fontSize = "75px";
+                    document.querySelector(".secondary-part-text").style.fontSize = "45px";
+                    document.querySelector(".secondary-part-picture").style.width = "64px";
+                    document.querySelector(".secondary-part-picture").style.height = "64px";
+                    document.querySelector(".header-picture").style.width = "228px";
+                    document.querySelector(".header-picture").style.height = "228px";
+                }
+            });
+        </script>        
+    </head>
+    <body>
+        <div id="header">
+            <img class="header-picture" src="/static/images/pixar.png">
+            <div class="header-text">
+                <div class="main-part">
+                    <b>D.O.N.T.F.O.R.G.E.T</b>
+                </div>
+                <div class="secondary-part">
+                    <div class="secondary-part-text">
+                        to turn of your ligth!
+                    </div>
+                    <img class="secondary-part-picture" src="/static/images/street-lamp-64x64.png">
+                </div>
+            </div>
+        </div>
+
+        <hr id="separator-lins">
+
+        <main class="container p-5">
+            {% block main %}{% endblock %}
+        </main>
+
+        <footer>
+            <i>
+                <b>&copy; 2021</b>
+                Save electricuty!
+            </i>
+        </footer>
+    </body>
+</html>
+
+
+
