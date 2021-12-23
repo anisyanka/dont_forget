@@ -4,6 +4,8 @@ import requests
 from flask import redirect, request, session
 from functools import wraps
 
+HW_SERVER_ADR = "http://localhost:8080/"
+
 
 def login_required(f):
     """
@@ -25,7 +27,7 @@ def get_floor_lamp_status():
 
 def do_floor_lamp(action):
     try:
-        url = "http://localhost:8080/" + action
+        url = HW_SERVER_ADR + action
         response = requests.get(url)
         response.raise_for_status()
     except requests.RequestException:

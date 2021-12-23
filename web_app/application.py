@@ -90,14 +90,16 @@ def logout():
 @app.route("/floor_lamp", methods=["GET", "POST"])
 def floor_lamp():
     status = do_floor_lamp(request.args.get("action"))
+
+    print("Result of action <" + request.args.get("action") +">:")
     print(status)
 
     if status is not None:
-        status = status["status"]
+        isok = status["hw-answer"]
     else:
-        status = "None"
+        isok = "None"
 
-    return jsonify(status)
+    return jsonify(isok)
 
 
 def errorhandler(e):
