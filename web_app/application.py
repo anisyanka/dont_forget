@@ -1,11 +1,11 @@
 from cs50 import SQL
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, flash, redirect, render_template, request, session, jsonify
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from helpers import login_required
+from helpers import login_required, get_floor_lamp_status, do_floor_lamp
 
 app = Flask(__name__)
 
@@ -34,7 +34,7 @@ db = SQL("sqlite:///dontforget.db")
 @app.route("/")
 @login_required
 def index():
-    return render_template("index.html")
+    return render_template("index.html", status=get_floor_lamp_status())
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -87,11 +87,26 @@ def logout():
     return redirect("/")
 
 
+@app.route("/floor_lamp", methods=["GET", "POST"])
+def floor_lamp():
+    status = do_floor_lamp(request.args.get("action"))
+    print(status)
+
+    if status is not None:
+        status = status["status"]
+    else:
+        status = "None"
+
+    return jsonify(status)
+
+
 def errorhandler(e):
     """Handle error"""
     if not isinstance(e, HTTPException):
         e = InternalServerError()
-    return apology(e.name, e.code)
+
+    flash("Internal server error")
+    return redirect("/logout")
 
 
 # Listen for errors

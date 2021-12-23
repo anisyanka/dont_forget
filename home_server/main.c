@@ -43,8 +43,8 @@ static void handle_request(struct http_request_s *request)
 {
 	int status = 404;
 	int hwres = HW_ACTION_NOT_FOUND;
-	char *body = (char *)err_target;
-	int body_len = sizeof(err_target) - 1;
+	char body[64] = { 0 };
+	int body_len = sizeof(body);
 
 	struct http_response_s* response = http_response_init();
 	struct http_string_s target = http_request_target(request);
@@ -63,10 +63,15 @@ static void handle_request(struct http_request_s *request)
 
 	status = (hwres == HW_ACTION_SUCCESS) ? 200 : 500;
 	status = (hwres == HW_ACTION_NOT_FOUND) ? 404 : status;
-	body = (char *)target.buf + 1;
-	body_len = target.len - 1;
 
-	printf("[DBG] status=%d\tbody=%.*s\n", status, body_len, body);
+	/* do json */
+	body_len = sprintf(body, "{\"status\": \"%s\"}",
+					   hwres == HW_ACTION_SUCCESS ? "OK" : "ERROR");
+	if (body_len < 0) {
+		status = 500;
+	}
+
+	printf("[DBG] status=%d\tbody=%s\n", status, body);
 
 	http_response_status(response, status);
 	http_response_header(response, "Content-Type", "text/plain");

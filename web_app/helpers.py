@@ -1,7 +1,7 @@
 import os
 import requests
 
-from flask import redirect, render_template, request, session
+from flask import redirect, request, session
 from functools import wraps
 
 
@@ -17,3 +17,18 @@ def login_required(f):
             return redirect("/login")
         return f(*args, **kwargs)
     return decorated_function
+
+
+def get_floor_lamp_status():
+    return "on"
+
+
+def do_floor_lamp(action):
+    try:
+        url = "http://localhost:8080/" + action
+        response = requests.get(url)
+        response.raise_for_status()
+    except requests.RequestException:
+        return None
+
+    return response.json()
