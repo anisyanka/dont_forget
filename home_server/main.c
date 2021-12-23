@@ -8,29 +8,38 @@
 #define HTTPSERVER_IMPL
 #include "httpserver.h"
 
-/* Lamp WEB API */
-static const char lamp_on[] = "/on";
-static const char lamp_off[] = "/off";
-static const char err_target[] = "/error";
+#define HW_ANSWER_MAX_LEN 16U
 
-/* Lamp HW API */
-static const char hw_lamp_on_cmd[] = "L1\n";
-static const char hw_lamp_on_cmd_len = sizeof(hw_lamp_on_cmd) - 1;
-static const char hw_lamp_off_cmd[] = "L0\n";
-static const char hw_lamp_off_cmd_len = sizeof(hw_lamp_off_cmd) - 1;
-static const char hw_ok_answer[] = "OK\n\r";
-static const char hw_er_answer[] = "ER\n\r";
-static const char hw_not_found[] = "NF\n\r";
-static const int hw_answer_len = sizeof(hw_ok_answer) - 1; /* keep answer lengths same */
+struct hw_action {
+	char *command;
+	char answer[HW_ANSWER_MAX_LEN];
+};
 
-/* Error codes from STM32 */
-enum {
+enum web_apis_indx {
+	ON,
+	OFF,
+	LAST
+};
+
+enum hw_error_codes {
 	HW_ACTION_SUCCESS,
 	HW_ACTION_FAULURE,
 	HW_ACTION_NOT_FOUND,
 };
 
-static int lamp_process_request(const char *hw_action, size_t len); /* if succes Returns 'HW_ACTION_SUCCESS' */
+struct web_hw_match_cmd {
+	char *web_cmd;
+	char *hw_cmd;
+};
+
+static struct web_hw_match_cmd web_apis_list[] = {
+	[ON] = { "/on", "L1\n" },
+	[OFF] = { "/off", "L0\n" },
+	[LAST] = { NULL, NULL },
+};
+
+
+static int lamp_process_request(struct hw_action *action); /* if succes Returns 'HW_ACTION_SUCCESS' */
 static void handle_request(struct http_request_s *request); /* common http requests handler */
 
 int main(int argc, char *argv[])
@@ -42,31 +51,41 @@ int main(int argc, char *argv[])
 static void handle_request(struct http_request_s *request)
 {
 	int status = 404;
-	int hwres = HW_ACTION_NOT_FOUND;
 	char body[64] = { 0 };
 	int body_len = sizeof(body);
+
+	int hwres = HW_ACTION_NOT_FOUND;
+	int hw_action_nf_flag = 1;
+	struct hw_action action = { 0 };
 
 	struct http_response_s* response = http_response_init();
 	struct http_string_s target = http_request_target(request);
 
 	printf("[DBG] target=%.*s\n", target.len, target.buf);
 
-	if (!memcmp(lamp_on, target.buf, hw_lamp_on_cmd_len)) {
-		printf("[DBG] lamp_on\n");
-		hwres = lamp_process_request(hw_lamp_on_cmd, hw_lamp_on_cmd_len);
+	for (int i = 0; i < sizeof(web_apis_list)/sizeof(web_apis_list[0]); ++i) {
+		if (web_apis_list[i].web_cmd == NULL) {
+			break;
+		}
+
+		if (!memcmp(web_apis_list[i].web_cmd, target.buf, strlen(web_apis_list[i].web_cmd))) {
+			action.command = web_apis_list[i].hw_cmd;
+			hw_action_nf_flag = 0;
+			break;
+		}
 	}
-	
-	if (!memcmp(lamp_off, target.buf, hw_lamp_off_cmd_len)) {
-		printf("[DBG] lamp_off\n");
-		hwres = lamp_process_request(hw_lamp_off_cmd, hw_lamp_off_cmd_len);
+
+	/* don't call HW if couldn't find needed cmd, because hw operations take long time */
+	if (!hw_action_nf_flag) {
+		hwres = lamp_process_request(&action);
 	}
 
 	status = (hwres == HW_ACTION_SUCCESS) ? 200 : 500;
 	status = (hwres == HW_ACTION_NOT_FOUND) ? 404 : status;
 
 	/* do json */
-	body_len = sprintf(body, "{\"status\": \"%s\"}",
-					   hwres == HW_ACTION_SUCCESS ? "OK" : "ERROR");
+	body_len = sprintf(body, "{\"hw-answer\": \"%s\"}",
+					   hw_action_nf_flag == 0 ? action.answer : "Not found");
 	if (body_len < 0) {
 		status = 500;
 	}
@@ -79,11 +98,10 @@ static void handle_request(struct http_request_s *request)
 	http_respond(request, response);
 }
 
-static int lamp_process_request(const char *hw_action, size_t len)
+static int lamp_process_request(struct hw_action *action)
 {
 	int fd, res;
 	int ret = HW_ACTION_FAULURE;
-	char rx[16] = { 0 };
 
 	/* Serial interface to STM32 board */
 	static const char port[] = "/dev/ttyUSB0";
@@ -95,7 +113,8 @@ static int lamp_process_request(const char *hw_action, size_t len)
 	}
 
 	/* send command */
-	res = write(fd, hw_action, len);
+	printf("[TX]: %s\n", action->command);
+	res = write(fd, action->command, strlen(action->command));
 	if (res < 0) {
 		printf("[ERR] errno=%d writting %s: %s\n", errno, port, strerror(errno));
 		goto exit_err;
@@ -105,25 +124,14 @@ static int lamp_process_request(const char *hw_action, size_t len)
 	usleep(200);
 
 	/* read answer */
-	res = read(fd, rx, sizeof(rx));
+	res = read(fd, action->answer, sizeof(action->answer));
 	if (res < 0) {
 		printf("[ERR] errno=%d reading %s: %s\n", errno, port, strerror(errno));
 		goto exit_err;
 	} else {
-		printf("[RX]: %s", rx);
-
-		if (res != hw_answer_len) {
-			printf("[ERR] wrong answer len: need=%d, but got=%d", hw_answer_len, res);
-			goto exit_err;
-		}
-
-		if (memcmp(rx, hw_ok_answer, hw_answer_len) != 0) {
-			goto exit_err;
-		}
+		printf("[RX]: %s\n", action->answer);
+		ret = HW_ACTION_SUCCESS;
 	}
-
-exit_ok:
-	ret = HW_ACTION_SUCCESS;
 
 exit_err:
 	close(fd);
