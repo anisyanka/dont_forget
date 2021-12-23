@@ -26,9 +26,9 @@ static uint8_t input_msg[MAX_MSG_LEN_BYTES];
 static int input_bytes;
 
 /* Answers to web app */
-static const char ok_answer[] = "OK\n\r";
-static const char er_answer[] = "ER\n\r";
-static const char not_found[] = "NF\n\r";
+static const char ok_answer[] = "OK";
+static const char er_answer[] = "ER";
+static const char not_found[] = "NF";
 
 void webcomm_start_listener(void)
 {
