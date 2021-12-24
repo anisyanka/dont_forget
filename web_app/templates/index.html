@@ -5,17 +5,28 @@
 {% endblock %}
 
 {% block main %}
-<div class="card" style="width: 18rem;" id="floor_lamp_state">
-    {% if status=="on" %}
-        <img id="floor-lamp-image" src="/static/images/floor-lamp-on.jpg" class="card-img-top">
-    {% else %}
-        <img id="floor-lamp-image" src="/static/images/floor-lamp-off.jpg" class="card-img-top">
-    {% endif %}
-    <div class="card-body">
-        <h5 class="card-title"><b>Floor lamp</b></h5>
-        <p id="floor-lamp-card-text" class="card-text">Status: <b>{{ status }}</b></p>
-        <a onclick="floor_lamp('on')" class="btn btn-outline-info">On</a>
-        <a onclick="floor_lamp('off')" class="btn btn-outline-info">Off</a>
+<div class="card-container">
+    <div class="card-item">
+        <div class="card" style="width: 18rem;">
+            {% if status=="on" %}
+                <img id="floor-lamp-image" src="/static/images/floor-lamp-on.jpg" class="card-img-top">
+            {% else %}
+                <img id="floor-lamp-image" src="/static/images/floor-lamp-off.jpg" class="card-img-top">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title"><b>Floor lamp</b></h5>
+                <p id="floor-lamp-card-text" class="card-text">Status: <b>{{ status }}</b></p>
+                <a onclick="floor_lamp('on')" class="btn btn-outline-info">On</a>
+                <a onclick="floor_lamp('off')" class="btn btn-outline-info">Off</a>
+            </div>
+        </div>
+        <div class="card-info">
+            <div id="floor-lamp-info">
+                <p></p>
+            </div>
+        </div>
     </div>
 </div>
+
+
 {% endblock %}

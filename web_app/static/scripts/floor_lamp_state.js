@@ -17,4 +17,6 @@ function floor_lamp_state() {
     request.send();
 }
 
-setInterval(floor_lamp_state, 2500)
+document.addEventListener('DOMContentLoaded', function() {
+    setInterval(floor_lamp_state, 2500)
+})

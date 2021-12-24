@@ -22,6 +22,7 @@
 
         <script src="/static/scripts/button_action.js"></script>
         <script src="/static/scripts/floor_lamp_state.js"></script>
+        <script src="/static/scripts/geolocation.js"></script>
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -86,7 +87,7 @@
 
         {% if get_flashed_messages() %}
             <header>
-                <div class="alert alert-primary border text-center" role="alert">
+                <div id="alert-msg-window" class="alert alert-primary border text-center" role="alert">
                     {{ get_flashed_messages() | join(" ") }}
                 </div>
             </header>

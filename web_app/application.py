@@ -5,7 +5,7 @@ from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from helpers import login_required, get_floor_lamp_status, do_floor_lamp
+from helpers import login_required, get_floor_lamp_status, do_floor_lamp, lamp_off_if_needed
 
 app = Flask(__name__)
 
@@ -125,6 +125,12 @@ def floor_lamp_state():
         isok = "None"
 
     return jsonify(isok)
+
+
+@app.route("/location", methods=["GET", "POST"])
+def location():
+    lampoff = lamp_off_if_needed(request.args.get("latitude"), request.args.get("longitude"))
+    return jsonify(lampoff)
 
 
 def errorhandler(e):

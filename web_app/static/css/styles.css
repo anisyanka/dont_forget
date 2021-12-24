@@ -68,6 +68,32 @@ main .form-control
     width: auto;
 }
 
+main .card-container
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+main .card-item
+{
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: space-between;
+}
+
+main .card-info
+{
+    font-size: 15px;
+    font-family: w3-monospace;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+}
+
 main
 {
     /* Scroll horizontally as needed */
