@@ -22,7 +22,14 @@ def login_required(f):
 
 
 def get_floor_lamp_status():
-    return "on"
+    try:
+        url = HW_SERVER_ADR + "state"
+        response = requests.get(url)
+        response.raise_for_status()
+    except requests.RequestException:
+        return None
+
+    return response.json()
 
 
 def do_floor_lamp(action):

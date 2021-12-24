@@ -34,7 +34,18 @@ db = SQL("sqlite:///dontforget.db")
 @app.route("/")
 @login_required
 def index():
-    return render_template("index.html", status=get_floor_lamp_status())
+    status = get_floor_lamp_status()
+
+    if status is not None:
+        isok = status["hw-answer"]
+        if isok == "L0":
+            isok = "off"
+        if isok == "L1":
+            isok = "on"
+    else:
+        isok = "None"
+
+    return render_template("index.html", status=isok)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -102,13 +113,28 @@ def floor_lamp():
     return jsonify(isok)
 
 
+@app.route("/floor_lamp_state", methods=["GET", "POST"])
+def floor_lamp_state():
+    status = get_floor_lamp_status()
+
+    print(status)
+
+    if status is not None:
+        isok = status["hw-answer"]
+    else:
+        isok = "None"
+
+    return jsonify(isok)
+
+
 def errorhandler(e):
     """Handle error"""
     if not isinstance(e, HTTPException):
         e = InternalServerError()
 
     flash("Internal server error")
-    return redirect("/logout")
+    print(e)
+    return redirect("/")
 
 
 # Listen for errors

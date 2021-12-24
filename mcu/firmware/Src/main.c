@@ -14,8 +14,11 @@ static void USART2_UART_Init(void);
 
 static enum web_action_status floor_lamp_on_func(void *args);
 static enum web_action_status floor_lamp_off_func(void *args);
+static enum web_action_status floor_lamp_state_func(void *args);
 
 static uint8_t uart_rx_flag;
+
+static struct web_action_params floor_state;
 
 int main(void)
 {
@@ -31,10 +34,12 @@ int main(void)
 	/* Register action to manage light in my room */
 	struct web_action floor_lamp_on = { 'L', '1', floor_lamp_on_func, NULL };
 	struct web_action floor_lamp_off = { 'L', '0', floor_lamp_off_func, NULL };
+	struct web_action floor_lamp_state = { 'L', 'S', floor_lamp_state_func, &floor_state };
 
 	/* Reg actions and start to listen for messages from web-application */
 	(void)webcomm_register_action(&floor_lamp_on);
 	(void)webcomm_register_action(&floor_lamp_off);
+	(void)webcomm_register_action(&floor_lamp_state);
 	webcomm_start_listener();
 
 	while (1) {
@@ -66,6 +71,24 @@ static enum web_action_status floor_lamp_off_func(void *args)
 	HAL_GPIO_WritePin(RELAY_GPIO_Port, RELAY_Pin, GPIO_PIN_SET);
 
 	return WEBCOMM_ACTION_SUCCESS;
+}
+
+static enum web_action_status floor_lamp_state_func(void *args)
+{
+	uint32_t odr;
+	struct web_action_params *p = (struct web_action_params *)args;
+
+	odr = RELAY_GPIO_Port->ODR;
+
+	if (odr & RELAY_Pin) {
+		memcpy(p->answer, "L0", 2);
+		p->answer_len = 2;
+	} else {
+		memcpy(p->answer, "L1", 2);
+		p->answer_len = 2;	
+	}
+
+	return WEBCOMM_READ_ANSWER_FROM_PARAMS;
 }
 
 static void SystemClock_Config(void)

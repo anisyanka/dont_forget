@@ -45,6 +45,7 @@ enum web_action_status webcomm_register_action(const struct web_action *act)
 	web_actions[registered_actions].pattern = act->pattern;
 	web_actions[registered_actions].type = act->type;
 	web_actions[registered_actions].action_fn = act->action_fn;
+	web_actions[registered_actions].params = act->params;
 
 	++registered_actions;
 
@@ -83,6 +84,14 @@ enum web_action_status webcomm_handle_rx_handler(void)
 				if (res == WEBCOMM_ACTION_SUCCESS) {
 					HAL_UART_Transmit(&huart2, (uint8_t *)ok_answer,
 									sizeof(ok_answer) - 1, 100);
+				} else if (res == WEBCOMM_READ_ANSWER_FROM_PARAMS) {
+					if (web_actions[i].params && web_actions[i].params->answer) {
+						HAL_UART_Transmit(&huart2, (uint8_t *)web_actions[i].params->answer,
+										  (uint16_t)web_actions[i].params->answer_len, 100);
+					} else {
+						HAL_UART_Transmit(&huart2, (uint8_t *)er_answer,
+										sizeof(er_answer) - 1, 100);
+					}
 				} else {
 					HAL_UART_Transmit(&huart2, (uint8_t *)er_answer,
 									sizeof(er_answer) - 1, 100);

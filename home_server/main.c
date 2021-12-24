@@ -18,6 +18,7 @@ struct hw_action {
 enum web_apis_indx {
 	ON,
 	OFF,
+	STATE,
 	LAST
 };
 
@@ -35,6 +36,7 @@ struct web_hw_match_cmd {
 static struct web_hw_match_cmd web_apis_list[] = {
 	[ON] = { "/on", "L1\n" },
 	[OFF] = { "/off", "L0\n" },
+	[STATE] = { "/state", "LS\n" },
 	[LAST] = { NULL, NULL },
 };
 

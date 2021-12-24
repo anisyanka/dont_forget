@@ -2,15 +2,12 @@ function floor_lamp_state() {
     var request = new XMLHttpRequest()
 
     request.onload = function() {
-        if (request.response == "on") {
+        if (request.response == "L1") {
             document.getElementById("floor-lamp-image").src = "/static/images/floor-lamp-on.jpg"
             document.getElementById("floor-lamp-card-text").innerHTML = "Status: <b>on</b>"
-        } else if (request.response == "off") {
+        } else if (request.response == "L0") {
             document.getElementById("floor-lamp-image").src = "/static/images/floor-lamp-off.jpg"
             document.getElementById("floor-lamp-card-text").innerHTML = "Status: <b>off</b>"
-        } else {
-            document.getElementById("floor-lamp-image").src = "..."
-            document.getElementById("floor-lamp-card-text").innerHTML = "Status: <b>error</b>"
         }
     }
 
@@ -20,4 +17,4 @@ function floor_lamp_state() {
     request.send();
 }
 
-//setInterval(floor_lamp_state, 1000)
+setInterval(floor_lamp_state, 2500)
