@@ -60,9 +60,14 @@ After that you are able to use:
 
 ### Run home server
 ```console
-$> make home-server
-$> ./home-server/build/homeserv
-$> ngrok http 8080 (proxy to global network)
+$ make home-server
+$ ./home-server/build/homeserv
+$ ngrok http 8080 (proxy to global network)
+```
+
+### Flask server in local network
+```console
+$ flask run --host=0.0.0.0
 ```
 
 ### Existed problems
