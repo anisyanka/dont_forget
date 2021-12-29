@@ -9,6 +9,7 @@
 #include "httpserver.h"
 
 #define HW_ANSWER_MAX_LEN 16U
+#define HW_MOCK_MODE 1
 
 struct hw_action {
 	char *command;
@@ -78,9 +79,44 @@ static void handle_request(struct http_request_s *request)
 	}
 
 	/* don't call HW if couldn't find needed cmd, because hw operations take long time */
+#if !HW_MOCK_MODE
 	if (!hw_action_nf_flag) {
 		hwres = lamp_process_request(&action);
 	}
+#else
+	int i;
+	static int cur_lapm_state = 0; /* always turned of, when started */
+
+	for (i = 0; i < sizeof(web_apis_list)/sizeof(web_apis_list[0]); ++i) {
+		if (web_apis_list[i].web_cmd == NULL) {
+			break;
+		}
+
+		if (!memcmp(web_apis_list[i].web_cmd, target.buf, strlen(web_apis_list[i].web_cmd))) {
+			action.command = web_apis_list[i].hw_cmd;
+			break;
+		}
+	}
+
+	memcpy(action.answer, "OK", 3);
+	hwres = HW_ACTION_SUCCESS;
+
+	if (i == ON) {
+		cur_lapm_state = 1;
+	} else if (i == OFF) {
+		cur_lapm_state = 0;
+	} else if (i == STATE) {
+		if (cur_lapm_state == 1) {
+			memcpy(action.answer, "L1", 3);
+		} else {
+			memcpy(action.answer, "L0", 3);
+		}
+	} else {
+		memcpy(action.answer, "ER", 3);
+		hwres = HW_ACTION_FAULURE;
+	}
+
+#endif
 
 	status = (hwres == HW_ACTION_SUCCESS) ? 200 : 500;
 	status = (hwres == HW_ACTION_NOT_FOUND) ? 404 : status;
