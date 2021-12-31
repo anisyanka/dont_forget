@@ -1,0 +1,424 @@
+<?xml version="1.0" standalone="no"?>
+<mlt LC_NUMERIC="C" version="7.5.0" title="Shotcut version 21.12.24" producer="main_bin">
+  <profile description="automatic" width="1920" height="1072" progressive="1" sample_aspect_num="1" sample_aspect_den="1" display_aspect_num="120" display_aspect_den="67" frame_rate_num="15" frame_rate_den="1" colorspace="709"/>
+  <playlist id="main_bin">
+    <property name="xml_retain">1</property>
+  </playlist>
+  <producer id="black" in="00:00:00.000" out="00:03:04.600">
+    <property name="length">00:03:04.667</property>
+    <property name="eof">pause</property>
+    <property name="resource">0</property>
+    <property name="aspect_ratio">1</property>
+    <property name="mlt_service">color</property>
+    <property name="mlt_image_format">rgba</property>
+    <property name="set.test_audio">0</property>
+  </producer>
+  <playlist id="background">
+    <entry producer="black" in="00:00:00.000" out="00:03:04.600"/>
+  </playlist>
+  <chain id="chain0" out="00:00:17.067">
+    <property name="length">00:00:17.133</property>
+    <property name="eof">pause</property>
+    <property name="resource">out-1.ogv</property>
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">-1</property>
+    <property name="video_index">1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:hash">60b9689b08ce4ec4530a746d88904bcb</property>
+    <property name="ignore_points">0</property>
+    <property name="shotcut:caption">out-1.ogv</property>
+    <property name="xml">was here</property>
+    <property name="shotcut:defaultAudioIndex">2</property>
+  </chain>
+  <chain id="chain1" out="00:00:20.600">
+    <property name="length">00:00:20.667</property>
+    <property name="eof">pause</property>
+    <property name="resource">out-2.ogv</property>
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">-1</property>
+    <property name="video_index">1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:hash">9df05b4d9d6e931b77692e7611391154</property>
+    <property name="ignore_points">0</property>
+    <property name="shotcut:caption">out-2.ogv</property>
+    <property name="xml">was here</property>
+    <property name="shotcut:defaultAudioIndex">2</property>
+  </chain>
+  <chain id="chain3" out="00:00:05.867">
+    <property name="length">00:00:05.933</property>
+    <property name="eof">pause</property>
+    <property name="resource">out-9.ogv</property>
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">-1</property>
+    <property name="video_index">1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:hash">78782c6a081273e8049225783a81c370</property>
+    <property name="ignore_points">0</property>
+    <property name="shotcut:caption">out-9.ogv</property>
+    <property name="xml">was here</property>
+    <property name="shotcut:defaultAudioIndex">2</property>
+  </chain>
+  <chain id="chain4" out="00:01:49.267">
+    <property name="length">00:01:49.333</property>
+    <property name="eof">pause</property>
+    <property name="resource">out-4.ogv</property>
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">-1</property>
+    <property name="video_index">1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:hash">ba80d6afcdd5dad7814c021c018e5cf2</property>
+    <property name="ignore_points">0</property>
+    <property name="shotcut:caption">out-4.ogv</property>
+    <property name="xml">was here</property>
+    <property name="shotcut:defaultAudioIndex">2</property>
+  </chain>
+  <chain id="chain5" out="00:01:49.267">
+    <property name="length">00:01:49.333</property>
+    <property name="eof">pause</property>
+    <property name="resource">out-4.ogv</property>
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">-1</property>
+    <property name="video_index">1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:hash">ba80d6afcdd5dad7814c021c018e5cf2</property>
+    <property name="ignore_points">0</property>
+    <property name="shotcut:caption">out-4.ogv</property>
+    <property name="xml">was here</property>
+    <property name="shotcut:defaultAudioIndex">2</property>
+  </chain>
+  <chain id="chain6" out="00:00:15.133">
+    <property name="length">00:00:15.200</property>
+    <property name="eof">pause</property>
+    <property name="resource">out-5.ogv</property>
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">-1</property>
+    <property name="video_index">1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:hash">ec243e72d8972b94f91de86ce119a322</property>
+    <property name="ignore_points">0</property>
+    <property name="shotcut:caption">out-5.ogv</property>
+    <property name="xml">was here</property>
+    <property name="shotcut:defaultAudioIndex">2</property>
+  </chain>
+  <chain id="chain7" out="00:01:02.533">
+    <property name="length">00:01:02.600</property>
+    <property name="eof">pause</property>
+    <property name="resource">out-6.ogv</property>
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">-1</property>
+    <property name="video_index">1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:hash">e02c9f7249636cef228c379dc88678e0</property>
+    <property name="ignore_points">0</property>
+    <property name="shotcut:caption">out-6.ogv</property>
+    <property name="xml">was here</property>
+    <property name="shotcut:defaultAudioIndex">2</property>
+  </chain>
+  <chain id="chain8" out="00:00:32.200">
+    <property name="length">00:00:32.267</property>
+    <property name="eof">pause</property>
+    <property name="resource">out-7.ogv</property>
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">-1</property>
+    <property name="video_index">1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:hash">dd33d01b2b971fd77ec64459c3597e63</property>
+    <property name="ignore_points">0</property>
+    <property name="shotcut:caption">out-7.ogv</property>
+    <property name="xml">was here</property>
+    <property name="shotcut:defaultAudioIndex">2</property>
+  </chain>
+  <chain id="chain9" out="00:00:11.333">
+    <property name="length">00:00:11.400</property>
+    <property name="eof">pause</property>
+    <property name="resource">out-8.ogv</property>
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">-1</property>
+    <property name="video_index">1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:hash">a9d981426942d3cf5ab44abd34f5b987</property>
+    <property name="ignore_points">0</property>
+    <property name="shotcut:caption">out-8.ogv</property>
+    <property name="xml">was here</property>
+    <property name="shotcut:defaultAudioIndex">2</property>
+  </chain>
+  <playlist id="playlist0">
+    <property name="shotcut:video">1</property>
+    <property name="shotcut:name">V1</property>
+    <entry producer="chain0" in="00:00:01.667" out="00:00:16.267"/>
+    <entry producer="chain1" in="00:00:00.933" out="00:00:19.600"/>
+    <entry producer="chain3" in="00:00:00.800" out="00:00:04.733"/>
+    <entry producer="chain4" in="00:00:05.667" out="00:00:58.733"/>
+    <entry producer="chain5" in="00:01:20.733" out="00:01:27.400"/>
+    <entry producer="chain6" in="00:00:01.600" out="00:00:13.267"/>
+    <entry producer="chain7" in="00:00:01.667" out="00:00:50.067"/>
+    <entry producer="chain8" in="00:00:02.133" out="00:00:20.600"/>
+    <entry producer="chain9" in="00:00:01.667" out="00:00:10.267"/>
+  </playlist>
+  <chain id="chain11" out="00:00:17.067">
+    <property name="length">00:00:17.133</property>
+    <property name="eof">pause</property>
+    <property name="resource">out-1.ogv</property>
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">2</property>
+    <property name="video_index">-1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:hash">60b9689b08ce4ec4530a746d88904bcb</property>
+    <property name="ignore_points">0</property>
+    <property name="shotcut:caption">out-1.ogv</property>
+    <property name="xml">was here</property>
+    <property name="shotcut:defaultAudioIndex">2</property>
+    <filter id="filter0" in="00:00:01.667" out="00:00:16.267">
+      <property name="window">75</property>
+      <property name="max_gain">20dB</property>
+      <property name="level">24</property>
+      <property name="mlt_service">volume</property>
+    </filter>
+    <filter id="filter1" in="00:00:01.667" out="00:00:16.267">
+      <property name="mlt_service">ladspa.1410</property>
+      <property name="0">33.6</property>
+      <property name="1">23520</property>
+      <property name="2">-70</property>
+      <property name="3">250.008</property>
+      <property name="4">1500.5</property>
+      <property name="5">2001</property>
+      <property name="6">-90</property>
+      <property name="disable">1</property>
+    </filter>
+    <filter id="filter2" in="00:00:01.667" out="00:00:16.267">
+      <property name="mlt_service">ladspa.1410</property>
+      <property name="0">1463.5</property>
+      <property name="1">5478</property>
+      <property name="2">-70</property>
+      <property name="3">0.01</property>
+      <property name="4">735</property>
+      <property name="5">1601</property>
+      <property name="6">-90</property>
+      <property name="instances">2</property>
+      <property name="7">-1</property>
+      <property name="disable">1</property>
+    </filter>
+  </chain>
+  <chain id="chain12" out="00:00:20.600">
+    <property name="length">00:00:20.667</property>
+    <property name="eof">pause</property>
+    <property name="resource">out-2.ogv</property>
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">2</property>
+    <property name="video_index">-1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:hash">9df05b4d9d6e931b77692e7611391154</property>
+    <property name="ignore_points">0</property>
+    <property name="shotcut:caption">out-2.ogv</property>
+    <property name="xml">was here</property>
+    <property name="shotcut:defaultAudioIndex">2</property>
+    <filter id="filter3" in="00:00:00.933" out="00:00:19.600">
+      <property name="window">75</property>
+      <property name="max_gain">20dB</property>
+      <property name="level">24</property>
+      <property name="mlt_service">volume</property>
+    </filter>
+  </chain>
+  <chain id="chain13" out="00:00:05.867">
+    <property name="length">00:00:05.933</property>
+    <property name="eof">pause</property>
+    <property name="resource">out-9.ogv</property>
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">2</property>
+    <property name="video_index">-1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:hash">78782c6a081273e8049225783a81c370</property>
+    <property name="ignore_points">0</property>
+    <property name="shotcut:caption">out-9.ogv</property>
+    <property name="xml">was here</property>
+    <property name="shotcut:defaultAudioIndex">2</property>
+    <filter id="filter4" in="00:00:00.600" out="00:00:04.533">
+      <property name="window">75</property>
+      <property name="max_gain">20dB</property>
+      <property name="level">24</property>
+      <property name="mlt_service">volume</property>
+    </filter>
+  </chain>
+  <chain id="chain14" out="00:01:49.267">
+    <property name="length">00:01:49.333</property>
+    <property name="eof">pause</property>
+    <property name="resource">out-4.ogv</property>
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">2</property>
+    <property name="video_index">-1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:hash">ba80d6afcdd5dad7814c021c018e5cf2</property>
+    <property name="ignore_points">0</property>
+    <property name="shotcut:caption">out-4.ogv</property>
+    <property name="xml">was here</property>
+    <property name="shotcut:defaultAudioIndex">2</property>
+    <filter id="filter5" in="00:00:05.667" out="00:00:58.733">
+      <property name="window">75</property>
+      <property name="max_gain">20dB</property>
+      <property name="level">24</property>
+      <property name="mlt_service">volume</property>
+    </filter>
+  </chain>
+  <chain id="chain15" out="00:01:49.267">
+    <property name="length">00:01:49.333</property>
+    <property name="eof">pause</property>
+    <property name="resource">out-4.ogv</property>
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">2</property>
+    <property name="video_index">-1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:hash">ba80d6afcdd5dad7814c021c018e5cf2</property>
+    <property name="ignore_points">0</property>
+    <property name="shotcut:caption">out-4.ogv</property>
+    <property name="xml">was here</property>
+    <property name="shotcut:defaultAudioIndex">2</property>
+    <filter id="filter6" in="00:01:20.733" out="00:01:27.400">
+      <property name="window">75</property>
+      <property name="max_gain">20dB</property>
+      <property name="level">24</property>
+      <property name="mlt_service">volume</property>
+    </filter>
+  </chain>
+  <chain id="chain16" out="00:00:15.133">
+    <property name="length">00:00:15.200</property>
+    <property name="eof">pause</property>
+    <property name="resource">out-5.ogv</property>
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">2</property>
+    <property name="video_index">-1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:hash">ec243e72d8972b94f91de86ce119a322</property>
+    <property name="ignore_points">0</property>
+    <property name="shotcut:caption">out-5.ogv</property>
+    <property name="xml">was here</property>
+    <property name="shotcut:defaultAudioIndex">2</property>
+    <filter id="filter7" in="00:00:01.600" out="00:00:13.267">
+      <property name="window">75</property>
+      <property name="max_gain">20dB</property>
+      <property name="level">24</property>
+      <property name="mlt_service">volume</property>
+    </filter>
+  </chain>
+  <chain id="chain17" out="00:01:02.533">
+    <property name="length">00:01:02.600</property>
+    <property name="eof">pause</property>
+    <property name="resource">out-6.ogv</property>
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">2</property>
+    <property name="video_index">-1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:hash">e02c9f7249636cef228c379dc88678e0</property>
+    <property name="ignore_points">0</property>
+    <property name="shotcut:caption">out-6.ogv</property>
+    <property name="xml">was here</property>
+    <property name="shotcut:defaultAudioIndex">2</property>
+    <filter id="filter8" in="00:00:01.667" out="00:00:50.133">
+      <property name="window">75</property>
+      <property name="max_gain">20dB</property>
+      <property name="level">24</property>
+      <property name="mlt_service">volume</property>
+    </filter>
+  </chain>
+  <chain id="chain18" out="00:00:32.200">
+    <property name="length">00:00:32.267</property>
+    <property name="eof">pause</property>
+    <property name="resource">out-7.ogv</property>
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">2</property>
+    <property name="video_index">-1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:hash">dd33d01b2b971fd77ec64459c3597e63</property>
+    <property name="ignore_points">0</property>
+    <property name="shotcut:caption">out-7.ogv</property>
+    <property name="xml">was here</property>
+    <property name="shotcut:defaultAudioIndex">2</property>
+    <filter id="filter9" in="00:00:02.000" out="00:00:20.667">
+      <property name="window">75</property>
+      <property name="max_gain">20dB</property>
+      <property name="level">24</property>
+      <property name="mlt_service">volume</property>
+    </filter>
+  </chain>
+  <chain id="chain19" out="00:00:11.333">
+    <property name="length">00:00:11.400</property>
+    <property name="eof">pause</property>
+    <property name="resource">out-8.ogv</property>
+    <property name="mlt_service">avformat-novalidate</property>
+    <property name="seekable">1</property>
+    <property name="audio_index">2</property>
+    <property name="video_index">-1</property>
+    <property name="mute_on_pause">0</property>
+    <property name="shotcut:hash">a9d981426942d3cf5ab44abd34f5b987</property>
+    <property name="ignore_points">0</property>
+    <property name="shotcut:caption">out-8.ogv</property>
+    <property name="xml">was here</property>
+    <property name="shotcut:defaultAudioIndex">2</property>
+    <filter id="filter10" in="00:00:01.533" out="00:00:10.267">
+      <property name="window">75</property>
+      <property name="max_gain">20dB</property>
+      <property name="level">24</property>
+      <property name="mlt_service">volume</property>
+    </filter>
+  </chain>
+  <playlist id="playlist1">
+    <property name="shotcut:audio">1</property>
+    <property name="shotcut:name">A1</property>
+    <entry producer="chain11" in="00:00:01.667" out="00:00:16.267"/>
+    <entry producer="chain12" in="00:00:00.933" out="00:00:19.600"/>
+    <entry producer="chain13" in="00:00:00.600" out="00:00:04.533"/>
+    <entry producer="chain14" in="00:00:05.667" out="00:00:58.733"/>
+    <entry producer="chain15" in="00:01:20.733" out="00:01:27.400"/>
+    <entry producer="chain16" in="00:00:01.600" out="00:00:13.267"/>
+    <entry producer="chain17" in="00:00:01.667" out="00:00:50.067"/>
+    <entry producer="chain18" in="00:00:02.067" out="00:00:20.533"/>
+    <entry producer="chain19" in="00:00:01.667" out="00:00:10.267"/>
+  </playlist>
+  <tractor id="tractor8" title="Shotcut version 21.12.24" in="00:00:00.000" out="00:03:04.600">
+    <property name="shotcut">1</property>
+    <property name="shotcut:projectAudioChannels">2</property>
+    <property name="shotcut:projectFolder">1</property>
+    <property name="shotcut:scaleFactor">8.66392</property>
+    <track producer="background"/>
+    <track producer="playlist0"/>
+    <track producer="playlist1" hide="video"/>
+    <transition id="transition16">
+      <property name="a_track">0</property>
+      <property name="b_track">1</property>
+      <property name="mlt_service">mix</property>
+      <property name="always_active">1</property>
+      <property name="sum">1</property>
+    </transition>
+    <transition id="transition17">
+      <property name="a_track">0</property>
+      <property name="b_track">1</property>
+      <property name="version">0.1</property>
+      <property name="mlt_service">frei0r.cairoblend</property>
+      <property name="threads">0</property>
+      <property name="disable">1</property>
+    </transition>
+    <transition id="transition18">
+      <property name="a_track">0</property>
+      <property name="b_track">2</property>
+      <property name="mlt_service">mix</property>
+      <property name="always_active">1</property>
+      <property name="sum">1</property>
+    </transition>
+  </tractor>
+</mlt>
